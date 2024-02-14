@@ -1,0 +1,284 @@
+/*---------------------------------------------------------------------------*/
+/*Банк 1*/
+const banks = [
+		[
+			{keyCode:	81,keyLable:'Q',sound:'snare',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Snares/33[kb]909sd.wav.mp3'},
+			{keyCode:	87,keyLable:'W',sound:'hi-hat',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Hats/37[kb]909-banging-lofi-hat.wav.mp3'},  
+			{keyCode:	69,keyLable:'E',sound:'tom-tom',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Toms/270[kb]tom-tom-spring-verb-lo.wav.mp3'},
+			{keyCode:	65,keyLable:'A',sound:'fl.tom',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Toms/42[kb]midtom.wav.mp3'},
+			{keyCode:	83,keyLable:'S',sound:'crash',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Crashes/96[kb]909-bright-crash.wav.mp3'},  
+			{keyCode:	68,keyLable:'D',sound:'cymbals',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Cymbals/82[kb]opencym.wav.mp3'},  
+			{keyCode:	90,keyLable:'Z',sound:'clap',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Claps/13[kb]707-clap.wav.mp3'},
+			{keyCode:	88,keyLable:'X',sound:'bass',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Toms/214[kb]giant_tom.wav.mp3'},  
+			{keyCode:	67,keyLable:'C',sound:'gong',url:'https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Gongs%20and%20Super%20Crashes/276[kb]big-boomy-gong.wav.mp3'},
+		], 
+		[
+			{keyCode:	81,keyLable:'Q',sound:'Heater-1',url:'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'},
+			{keyCode:	87,keyLable:'W',sound:'Heater-2',url:'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'},  
+			{keyCode:	69,keyLable:'E',sound:'Heater-3',url:'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'},
+			{keyCode:	65,keyLable:'A',sound:'Heater-4',url:'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'},
+			{keyCode:	83,keyLable:'S',sound:'Clap',url:'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'},  
+			{keyCode:	68,keyLable:'D',sound:'Open-HH',url:'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'},  
+			{keyCode:	90,keyLable:'Z',sound:'Kick-Hat',url:'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'},
+			{keyCode:	88,keyLable:'X',sound:'Kick',url:'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'},  
+			{keyCode:	67,keyLable:'C',sound:'Clos.-HH',url:'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'},
+		]
+	]
+
+/*Настройки*/
+const controls = [
+	{setting_name:'volume',default_value:100,min:0,max:100,step:10,},
+	{setting_name:'bank',default_value:1,min:1,max:2,step:1,},
+	{setting_name:'loop',default_value:0,min:0,max:1000,step:100,},
+	{setting_name:'power',default_value:1,min:0,max:1,step:1,}
+]
+
+/*Строка кредитсов*/
+const credits = 'Credits * Fonts * Digital-7 by Style-7 * Chakra Petch, Monoton, Bebas Neue by google fonts * Bank 1 sounds from https://sampleswap.org/ * Bank 2 sounds from https://freecodecamp.org/ * Enderlorde 2021 * '
+/*---------------------------------------------------------------------------*/
+/*Базовый компонент приложения*/
+class App extends React.Component {
+  constructor(props){
+    super(props)
+		this.state={
+			display_text:'',
+			current_message:'Hello! Click any pad or press key to play sound.',
+			current_char_number:0,
+			current_audio:'',
+			power:1,
+			loop:0,
+			gain:100,
+			bank:1,
+			volume:100,
+		}
+		this.changeDisplayText = this.changeDisplayText.bind(this)
+		this.displayTextSlide = this.displayTextSlide.bind(this)
+		this.changeState = this.changeState.bind(this)
+  }
+	
+	/*Функция прокрутки текста на дисплее*/
+	displayTextSlide() {
+		let buffer = []
+		let message = this.state.current_message.split('').map(elem => elem===" "?'\u00A0':elem)
+		let char_number = this.state.current_char_number
+		for (let i = 0;i<18;i++){
+			let current_char_index = char_number + i
+			if (current_char_index>=message.length){
+				buffer.push(message[current_char_index - message.length])
+			}else{
+				buffer.push(message[current_char_index])
+			}
+		}
+		
+		if ((char_number+1)>message.length){
+			char_number = 1
+		}else{
+			char_number+=1
+		}
+		this.setState({
+			display_text:buffer.join(''),
+			current_char_number:char_number,
+		})
+	}
+	
+	componentDidMount() {
+    this.timerID = setInterval(this.displayTextSlide,500)
+		console.log(credits)
+  }
+	
+	componentWillUnmount() {
+   	clearInterval(this.timerID)
+  }
+	
+	/*Смена и форматирование текста*/
+	changeDisplayText(text){
+		/*Костыль*/
+		this.setState({current_audio:text})
+		
+		if (text.length < 18){
+			let placeholder = new Array(18 - text.length).fill('\u00A0')
+			text = text.split('').concat(placeholder).join('')
+		}
+		this.setState({current_message:text})
+	}
+	
+	/*Изменение состояний*/
+	changeState(state,value){
+		let new_state = {}
+		new_state[state] = value
+		this.setState(new_state)
+	}
+	
+  render(){
+    return (
+      <div id="drum-machine">
+        <Display power={this.state.power} text={this.state.display_text} current_audio={this.state.current_audio}/>
+				<Controls power={this.state.power} controls={controls} changeState={this.changeState} changeDisplayText={this.changeDisplayText}/>
+        <Keyboard power={this.state.power} volume={this.state.volume} bank={this.state.bank} loop={this.state.loop} pads={banks[this.state.bank-1]} changeDisplayText={this.changeDisplayText}/>
+      </div>
+    )
+  }
+}
+
+/*Компонент дисплея*/
+class Display extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    return (
+      <div id="display">
+				{/*Костыль*/}
+				{this.props.current_audio.length<20?this.props.current_audio:''}
+				
+				<div id="disabled-segments">888888888888888888
+					<div id="active-segments">{this.props.power?this.props.text:''}</div>
+				</div>
+      </div>
+    )
+  }
+}
+
+/*Компонент панели настроек*/
+class Controls extends React.Component {
+	constructor(props){
+		super(props)
+	}
+	
+	render(){
+		let knobs = this.props.controls.map(knob => {return(<Knob setting_name={knob.setting_name} app={this.props.app} min={knob.min} max={knob.max} step={knob.step} default_value={knob.default_value} key={knob.setting_name} changeState={this.props.changeState} changeDisplayText={this.props.changeDisplayText}/>)})
+		return(
+			<div id="controls">
+				<Logo changeDisplayText={this.props.changeDisplayText} />
+				{knobs}
+			</div>
+		)
+	}
+}
+
+/*Компонент логотипа*/
+class Logo extends React.Component {
+	constructor(props){
+		super(props)
+	}
+	
+	/*Обработчик щелчка мышью*/
+	clickHandler(){
+		this.props.changeDisplayText(credits)
+	}
+	
+	render(){
+		return(
+			<div className="logo" onClick={this.clickHandler.bind(this)}>
+				<svg id="SVGRoot" version="1.1" viewBox="0 0 167.58 172.27" xmlns="http://www.w3.org/2000/svg">
+					<g transform="translate(-67.023 -40.865)">
+						<path d="m132.59 132.29v46.156c-9.8209-9.8209-29.973-29.974-51.448-51.448 14.029-14.029 32.442-32.442 51.448-51.448v35.872h-0.59905v-21.466-12.052l-8.5221 8.5221c-12.595 12.595-25.005 25.005-37.042 37.042l-3.53 3.53 3.53 3.53c12.851 12.851 25.275 25.275 37.042 37.042l8.5221 8.5221v-12.052-26.758h5.5912zm4.9921-4.9921h-10.583-4.9921v4.9921 19.698c-2.1636-2.1636-13.392-13.392-24.99-24.99 5.7818-5.7818 15.318-15.318 24.99-24.99v14.406 4.9921h4.9921 10.583 4.9921v-4.9922-52.917-12.052l-8.5221 8.5221c-22.03 22.03-43.329 43.329-63.5 63.5l-3.53 3.53 3.53 3.53c22.798 22.798 44.155 44.155 63.5 63.5l8.5221 8.5221v-12.052-58.208z"/>
+						<path d="m148.47 127v74.083 12.052l86.135-86.135-3.53-3.53c-23.671-23.671-48.576-48.576-74.083-74.083l-8.5221-8.5221v12.052 15.875 2.0678l1.4622 1.4622c18.345 18.345 36.689 36.689 54.678 54.678-9.8348 9.8348-22.942 22.942-35.573 35.573v-35.573-4.9921h-4.9921-10.583zm4.9921 4.9921h5.5912v42.633 12.052l8.5221-8.5221c15.217-15.217 31.228-31.228 47.625-47.625l3.53-3.53-3.53-3.53c-18.639-18.639-37.688-37.688-56.746-56.746v-1.7551c15.72 15.72 39.419 39.419 62.031 62.031l-62.031 62.031v-62.031z"/>
+					</g>
+				</svg>
+			</div>
+		)
+	}
+}
+
+/*Компонент слайдера настройки*/
+class Knob extends React.Component {
+	constructor(props){
+		super(props)
+	}
+	
+	/*Обработчик события изменения слайдера*/
+	handlerChange(){
+		this.props.changeDisplayText(this.props.setting_name + ' ' + this._slider.value)
+		this.props.changeState(this.props.setting_name+"", parseInt(this._slider.value))
+	}
+	
+	render(){
+		return(
+			<div className="knob">
+				<div name={this.props.setting_name} className="setting_name">{this.props.setting_name}</div>
+				<input className="slider" ref={c => (this._slider = c)} onChange={this.handlerChange.bind(this)} type="range" min={this.props.min} max={this.props.max} step={this.props.step} defaultValue={this.props.default_value}/>
+			</div>
+		)
+	}
+}	
+
+/*Компонент клавиатуры*/
+class Keyboard extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    let pads;
+    pads = this.props.pads.map(pad => <Drumpad power={this.props.power} volume={this.props.volume} bank={this.props.bank} loop={this.props.loop} changeDisplayText={this.props.changeDisplayText} keyCode={pad.keyCode} key={pad.keyLable} keyLable={pad.keyLable} trigger={pad.sound} url={pad.url}/>)
+    return(
+       <div id="keyboard">{pads}</div>     
+    ) 
+  }
+}
+
+/*Компонент клавиши*/
+class Drumpad extends React.Component {
+  constructor(props){
+    super(props)
+		this.state={
+			active:"false",
+		}
+  }
+	
+	/*Обработчик нажатия клавиатуры*/ 
+	handleKeyPress(event){
+		if (event.keyCode === this.props.keyCode){
+			this.setBeat()
+		}
+	}	
+
+	componentDidMount(){
+		document.addEventListener('keydown', this.handleKeyPress.bind(this))
+	}
+	
+	/*Переключение в неактивное состояние*/
+	setInactive(){
+		this.setState({active:"false"})
+	}
+	
+	playClip(){
+		if (this.props.power){
+			this.setState({active:"true"})
+			this.props.changeDisplayText(this.props.trigger)
+			const audio = $('#'+this.props.keyLable).get(0)
+			audio.volume = this.props.volume/100
+			audio.currentTime = 0
+			audio.play()
+			setTimeout(this.setInactive.bind(this),100)
+		}else{
+			console.log('Turn me on!!!!')
+		}
+	}
+	
+	setBeat(){
+		clearInterval(this.beat_timerID)
+		this.props.loop>0?(this.beat_timerID = setInterval(this.playClip.bind(this),this.props.loop)):this.playClip();
+	}
+	
+  render(){
+    return (
+			<div className="pad-wrapper">
+				<div className="pad-title">
+					<span>{this.props.trigger.toUpperCase()}</span> <span className ="inverse">BANK{this.props.bank}</span>
+				</div>
+				<div className="pad-info">
+					{this.props.keyLable}
+				</div>
+				<div className="pad-border">
+					<div className="drum-pad" active={this.state.active} id={this.props.trigger} onClick={this.setBeat.bind(this)}>
+						{this.props.keyLable}
+						<audio className='clip' src={this.props.url} id={this.props.keyLable}></audio>
+					</div>
+				</div>
+			</div>
+    )
+  }
+}
+
+ReactDOM.render(<App />,$('#container').get(0))
