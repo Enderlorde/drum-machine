@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "DotGothic16";
+    src: url("./static/fonts/DotGothic16-Regular.ttf");
+}
+@font-face {
+    font-family: "PressStart2P";
+    src: url("./static/fonts/PressStart2P-Regular.ttf");
+}
+@font-face {
+    font-family: "Silkscreen";
+    src: url("./static/fonts/Silkscreen-Regular.ttf");
+}
+
+.display {
+    position:relative;
+    display: flex;
+    align-items: center;
+    font-family: 'Silkscreen', arial;
+    text-align:center;
+    font-size:30px;
+    width:90%;
+    height:50px;
+    border:1px solid gray;
+    background-color:#8bac0f;
+    z-index: -2;
+}
+
+.active_segments{
+    position:relative;
+    width:100%;
+    color:#000000;
+    
+}
+
+
+
+@media screen and (max-width:479px) and (orientation:portrait){
+.display{
+    position:relative;
+    top:0;
+    left:0;
+    margin:0;
+    width:100%;
+}
+}

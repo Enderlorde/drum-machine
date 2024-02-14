@@ -1,0 +1,67 @@
+.pad_wrapper{
+    padding:2px;
+    height:110px;
+    width:110px;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.pad_title{
+    width:110px;
+    height:20px;
+    color:white;
+    padding-right:5px;
+    text-align:right;
+}
+
+.inverse {
+    color:black;
+    background:white;
+    padding:1px;
+}
+
+.pad_info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    width:20px;
+    height:90px;
+    font-size:1.3em;
+}
+
+.pad_info:before{
+    content:"╔";
+}
+
+.pad_info:after{
+    content:"╚";
+}
+
+.pad_border{	
+    border:2px solid #e0dacc;
+    border-radius:14px;
+    padding:2px;
+}
+
+.drum_pad{
+    min-width:80px;
+    min-height:80px;
+    background-color:#e0dacc;
+    border-radius:10px;
+    box-shadow:-2px -2px 5px 0 #eee, 3px 3px 5px 0 #000;
+    color:#e0dacc;
+    text-align:center;
+}
+
+.drum_pad[active=true]{
+    min-width:80px;
+    min-height:80px;
+    background-color:#e0dacc;
+    border-radius:10px;
+    box-shadow:2px 2px 5px 0 #eee;
+    color:#e0dacc;
+    text-align:center;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "drummachine",
+  "version": "1.0.0",
+  "description": "A simple drum machine, part of the tasks from FreeCodeCamp",
+  "main": "index.js",
+  "author": "Enderlorde <ender.workpost@ya.ru>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^5.1.1"
+  }
+}

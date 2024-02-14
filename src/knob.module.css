@@ -1,0 +1,26 @@
+.knob {
+    display:grid;
+    //display:flex;
+    //align-items:center;
+    //justify-content:center;
+    //transform:rotate(90deg);
+    grid-template-columns:repeat(auto-fill,50%);
+    margin:0;
+}
+
+.setting_name{
+    transform:rotate(-90deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    writing-mode: lr-tb;
+    color:#858585;
+    text-shadow:#fff -1px 0px 0px;
+    margin: auto 0;
+}
+
+.slider{
+    //padding:50% 0;
+    transform:rotate(-90deg);
+    margin: auto;
+}	
