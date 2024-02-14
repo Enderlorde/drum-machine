@@ -10,26 +10,65 @@
     font-family: "Silkscreen";
     src: url("./static/fonts/Silkscreen-Regular.ttf");
 }
+@font-face {
+    font-family: "LCD14Italic";
+    src: url("./static/fonts/LCD14Italic.otf");
+}
+@font-face {
+    font-family: "Sixteen-Mono-Light";
+    src: url("./static/fonts/Sixteen-Mono-Light.otf");
+}
+@font-face {
+    font-family: "Cageroll-Standard";
+    src: url("./static/fonts/Cageroll-Standard.otf");
+}
+@font-face {
+    font-family: "Cageroll-Cage";
+    src: url("./static/fonts/Cageroll-Cage.otf");
+}
+@font-face {
+    font-family: "Cageroll-Roll";
+    src: url("./static/fonts/Cageroll-Roll.otf");
+}
 
 .display {
     position:relative;
     display: flex;
     align-items: center;
-    font-family: 'Silkscreen', arial;
+    font-family: 'Cageroll-Cage', arial;
     text-align:center;
     font-size:30px;
-    width:90%;
+    width:100%;
     height:50px;
     border:1px solid gray;
     background-color:#8bac0f;
-    z-index: -2;
+    background-image: url("./static/images/otis-redding.png");
+
+    box-shadow: inset 0px 0px 5px 5px #414141;
+
+    user-select: none;
+}
+
+.display::after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-image: url("./static/images/glass_overlay.png");
+    background-position: center;
+    background-size: cover;
+    background-color: transparent;
+    position: absolute;
+    opacity: 0.4;
 }
 
 .active_segments{
     position:relative;
     width:100%;
-    color:#000000;
-    
+    color:#303030;
+    text-shadow: 2px -1px 1px #6d6d6d ;
 }
 
 
