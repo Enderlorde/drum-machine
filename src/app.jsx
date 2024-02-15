@@ -69,7 +69,7 @@ class App extends React.Component {
 		let buffer = []
 		let message = this.state.current_message.split('').map(elem => elem===" "?'\u00A0':elem)
 		let char_number = this.state.current_char_number
-		for (let i = 0;i<25;i++){
+		for (let i = 0;i<22;i++){
 			let current_char_index = char_number + i
 			if (current_char_index>=message.length){
 				buffer.push(message[current_char_index - message.length])
@@ -103,8 +103,8 @@ class App extends React.Component {
 		/*Костыль*/
 		this.setState({current_audio:text})
 		
-		if (text.length < 25){
-			let placeholder = new Array(25 - text.length).fill('\u00A0')
+		if (text.length < 22){
+			let placeholder = new Array(22 - text.length).fill('\u00A0')
 			text = text.split('').concat(placeholder).join('')
 		}
 		this.setState({current_message:text})

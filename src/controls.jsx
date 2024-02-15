@@ -10,11 +10,15 @@ class Controls extends React.Component {
 	}
 	
 	render(){
-		let knobs = this.props.controls.map(knob => {return(<Slider setting_name={knob.setting_name} app={this.props.app} min={knob.min} max={knob.max} step={knob.step} default_value={knob.default_value} key={knob.setting_name} changeState={this.props.changeState} changeDisplayText={this.props.changeDisplayText}/>)})
+		let sliders = this.props.controls.map(slider => {
+			return(
+				<div className={classes.element}>
+					<Slider title={slider.setting_name} app={this.props.app} min={slider.min} max={slider.max} step={slider.step} default_value={slider.default_value} key={slider.setting_name} changeState={this.props.changeState} changeDisplayText={this.props.changeDisplayText}/>
+				</div>
+			)})
 		return(
 			<div id="controls" className={classes.controls}>
-				<Logo changeDisplayText={this.props.changeDisplayText} />
-				{knobs}
+				{sliders}
 			</div>
 		)
 	}
