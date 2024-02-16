@@ -6,6 +6,9 @@ class Slider extends React.Component {
 	constructor(props){
 		super(props)
 		this.num = (this.props.max-this.props.min)/this.props.step
+		this.points = Array(this.num+1).fill(
+			<div className={classes.point}></div>
+		)
 	}
 	
 	/*Обработчик события изменения слайдера*/
@@ -14,6 +17,8 @@ class Slider extends React.Component {
 		this.props.changeState(this.props.setting_name+"", parseInt(this._slider.value))
 	}
 		
+
+
 	render(){
 		return(
 			<div className={classes.wrapper}>
@@ -21,6 +26,10 @@ class Slider extends React.Component {
 
 				<div className={classes.groove}>
 					<input className={classes.slider} ref={c => (this._slider = c)} onChange={this.handlerChange.bind(this)} type="range" min={this.props.min} max={this.props.max} step={this.props.step} defaultValue={this.props.default_value}/>
+				</div>
+
+				<div className={classes.points}>
+					{this.points.map(element => element)}
 				</div>
 			</div>
 		)
