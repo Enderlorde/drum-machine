@@ -9,7 +9,7 @@ class Keyboard extends React.Component {
   }
   render(){
     let pads;
-    pads = this.props.pads.map(pad => <Drumpad power={this.props.power} volume={this.props.volume} bank={this.props.bank} loop={this.props.loop} changeDisplayText={this.props.changeDisplayText} keyCode={pad.keyCode} key={pad.keyLable} keyLable={pad.keyLable} trigger={pad.sound} url={pad.url}/>)
+    pads = this.props.pads.map(pad => <Drumpad power={this.props.power} volume={this.props.volume} audio_url={pad.url} loop={this.props.loop}  keyCode={pad.keyCode} key={pad.keyLable} keyLable={pad.keyLable} sound_name={pad.sound} changeDisplayText={(text) => this.props.changeDisplayText(text)}/>)
     return(
        <div id="keyboard" className={classes.keyboard}>{pads}</div>     
     ) 

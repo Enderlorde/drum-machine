@@ -7,13 +7,14 @@ class Drumpad extends React.Component {
     super(props)
 		this.state={
 			active:"false",
+			audio: new Audio (this.props.audio_url),
 		}
   }
 	
 	/*Обработчик нажатия клавиатуры*/ 
 	handleKeyPress(event){
 		if (event.keyCode === this.props.keyCode){
-			this.setBeat()
+			this.setBeat(this)
 		}
 	}	
 
@@ -28,12 +29,12 @@ class Drumpad extends React.Component {
 	
 	playClip(){
 		if (this.props.power){
+			console.log(this.props.volume);
 			this.setState({active:"true"})
-			this.props.changeDisplayText(this.props.trigger)
-			const audio = $('#'+this.props.keyLable).get(0)
-			audio.volume = this.props.volume/100
-			audio.currentTime = 0
-			audio.play()
+			this.props.changeDisplayText(this.props.sound_name);
+			this.state.audio.volume = this.props.volume/100;
+			this.state.audio.currentTime = 0;
+			this.state.audio.play()
 			setTimeout(this.setInactive.bind(this),100)
 		}else{
 			console.log('Turn me on!!!!')
@@ -42,14 +43,14 @@ class Drumpad extends React.Component {
 	
 	setBeat(){
 		clearInterval(this.beat_timerID)
-		this.props.loop>0?(this.beat_timerID = setInterval(this.playClip.bind(this),this.props.loop)):this.playClip();
+		this.props.loop>0?(this.beat_timerID = setInterval(() => this.playClip(),this.props.loop)):this.playClip();
 	}
 	
   render(){
     return (
 			<div className={classes.pad_wrapper}>
 				<div className={classes.pad_title}>
-					<span>{this.props.trigger.toUpperCase()}</span> <span className ={classes.inverse}>BANK{this.props.bank}</span>
+					<span>{this.props.sound_name.toUpperCase()}</span> <span className ={classes.inverse}>BANK{this.props.bank}</span>
 				</div>
 				
 				<div className={classes.pad_info}>
@@ -57,9 +58,7 @@ class Drumpad extends React.Component {
 				</div>
 
 				<div className={classes.pad_border}>
-					<div className={classes.drum_pad} active={this.state.active} id={this.props.trigger} onClick={this.setBeat.bind(this)}>
-						{this.props.keyLable}
-						<audio className={classes.clip} src={this.props.url} id={this.props.keyLable}></audio>
+					<div className={classes.drum_pad} active={this.state.active} id={this.props.trigger} onClick={() => this.setBeat()}>
 					</div>
 				</div>
 			</div>

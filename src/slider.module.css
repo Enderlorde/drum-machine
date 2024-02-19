@@ -60,8 +60,8 @@
     height: 24px;
     appearance: none;
     cursor: pointer;
-    transform: translateY(calc(-50% + 3px));
-    box-shadow: 0 0 0 3px #000;
+    transform: translateY(calc(-50% ));
+    box-shadow: 2px 0 1px #000, -2px 0 1px #000;
     background-image: url("./static/images/thumb.png");
     background-size: contain;
     background-repeat: no-repeat;

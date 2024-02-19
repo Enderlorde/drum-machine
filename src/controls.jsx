@@ -10,10 +10,10 @@ class Controls extends React.Component {
 	}
 	
 	render(){
-		let sliders = this.props.controls.map(slider => {
+		let sliders = this.props.controls.map((slider, index) => {
 			return(
-				<div className={classes.element}>
-					<Slider title={slider.setting_name} app={this.props.app} min={slider.min} max={slider.max} step={slider.step} default_value={slider.default_value} key={slider.setting_name} changeState={this.props.changeState} changeDisplayText={this.props.changeDisplayText}/>
+				<div key={index} className={classes.element}>
+					<Slider title={slider.setting_name} app={this.props.app} min={slider.min} max={slider.max} step={slider.step} default_value={slider.default_value} key={index} changeState={this.props.changeState} changeDisplayText={this.props.changeDisplayText}/>
 				</div>
 			)})
 		return(

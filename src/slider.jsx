@@ -13,8 +13,8 @@ class Slider extends React.Component {
 	
 	/*Обработчик события изменения слайдера*/
 	handlerChange(){
-		this.props.changeDisplayText(this.props.setting_name + ' ' + this._slider.value)
-		this.props.changeState(this.props.setting_name+"", parseInt(this._slider.value))
+		this.props.changeDisplayText(this.props.title + ' ' + this._slider.value)
+		this.props.changeState(this.props.title+"", parseInt(this._slider.value))
 	}
 		
 
@@ -29,7 +29,7 @@ class Slider extends React.Component {
 				</div>
 
 				<div className={classes.points}>
-					{this.points.map(element => element)}
+					{this.points.map((element, index) => <React.Fragment key={index}>{element}</React.Fragment>)}
 				</div>
 			</div>
 		)
