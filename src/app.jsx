@@ -41,8 +41,6 @@ const controls = [
 	{setting_name:'power',default_value:1,min:0,max:1,step:1,}
 ]
 
-/*Строка кредитсов*/
-const credits = 'Credits * Fonts * Digital-7 by Style-7 * Chakra Petch, Monoton, Bebas Neue by google fonts * Bank 1 sounds from https://sampleswap.org/ * Bank 2 sounds from https://freecodecamp.org/ * Enderlorde 2021 * '
 /*---------------------------------------------------------------------------*/
 /*Базовый компонент приложения*/
 class App extends React.Component {
@@ -91,7 +89,6 @@ class App extends React.Component {
 	
 	componentDidMount() {
     this.timerID = setInterval(this.displayTextSlide,500)
-		console.log(credits)
   }
 	
 	componentWillUnmount() {

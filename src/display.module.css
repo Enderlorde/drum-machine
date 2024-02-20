@@ -1,34 +1,6 @@
 @font-face {
-    font-family: "DotGothic16";
-    src: url("./static/fonts/DotGothic16-Regular.ttf");
-}
-@font-face {
-    font-family: "PressStart2P";
-    src: url("./static/fonts/PressStart2P-Regular.ttf");
-}
-@font-face {
-    font-family: "Silkscreen";
-    src: url("./static/fonts/Silkscreen-Regular.ttf");
-}
-@font-face {
-    font-family: "LCD14Italic";
-    src: url("./static/fonts/LCD14Italic.otf");
-}
-@font-face {
-    font-family: "Sixteen-Mono-Light";
-    src: url("./static/fonts/Sixteen-Mono-Light.otf");
-}
-@font-face {
-    font-family: "Cageroll-Standard";
-    src: url("./static/fonts/Cageroll-Standard.otf");
-}
-@font-face {
     font-family: "Cageroll-Cage";
     src: url("./static/fonts/Cageroll-Cage.otf");
-}
-@font-face {
-    font-family: "Cageroll-Roll";
-    src: url("./static/fonts/Cageroll-Roll.otf");
 }
 
 .display {
@@ -70,8 +42,6 @@
     color:#303030;
     text-shadow: 2px -1px 1px #6d6d6d ;
 }
-
-
 
 @media screen and (max-width:479px) and (orientation:portrait){
 .display{

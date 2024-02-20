@@ -29,7 +29,6 @@ class Drumpad extends React.Component {
 	
 	playClip(){
 		if (this.props.power){
-			console.log(this.props.volume);
 			this.setState({active:"true"})
 			this.props.changeDisplayText(this.props.sound_name);
 			this.state.audio.volume = this.props.volume/100;
